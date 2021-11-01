@@ -1,0 +1,42 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "this is the server for CampAI",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist/*",
+    "gcp-build": "tsc -p .",
+    "start": "npm run clean && tsc && node dist/app.js",
+    "start:dev": "tsc && nodemon src/app.ts",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frederikblais/CampAI.git"
+  },
+  "author": "frederik blais",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frederikblais/CampAI/issues"
+  },
+  "homepage": "https://github.com/frederikblais/CampAI#readme",
+  "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.4",
+    "@types/superagent": "^4.1.13",
+    "@types/ws": "^8.2.0",
+    "nodemon": "^2.0.14"
+  },
+  "dependencies": {
+    "@google-cloud/dialogflow": "^4.5.0",
+    "@koa/router": "^10.1.1",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "firebase": "^9.2.0",
+    "koa": "^2.13.4",
+    "koa-basic-auth": "^4.0.0",
+    "koa-bodyparser": "^4.3.0",
+    "superagent": "^6.1.0",
+    "ws": "^8.2.3"
+  }
+}
