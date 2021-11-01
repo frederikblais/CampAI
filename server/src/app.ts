@@ -5,6 +5,7 @@ import { logger } from "./utils/logger";
 import { healthCheckRouter } from "./routers/healthCheck.router";
 import { userRouter } from "./routers/user.router";
 import { chatRouter } from "./routers/chat.router";
+import { reservationRouter } from "./routers/reservation.router";
 
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
@@ -23,6 +24,7 @@ app.use(bodyParser())
 app.use(healthCheckRouter.routes());
 app.use(userRouter.routes());
 app.use(chatRouter.routes());
+app.use(reservationRouter.routes());
 
 // 404 Handler
 app.use(async (ctx: Context) => {
