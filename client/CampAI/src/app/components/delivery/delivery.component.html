@@ -1,0 +1,37 @@
+<div>
+  <section>
+    <!-- add a new delivery -->
+    <div class="container my-3">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          [(ngModel)]="myTextInput"
+          class="form-control"
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+      <button class="btn btn-primary" (click)="onClickAddNewDelivery()">
+        Add a new delivery
+      </button>
+    </div>
+  </section>
+  <section>
+    <!-- show deliveries progress -->
+    <div *ngFor="let delivery of deliveriesArray">
+      <!-- <span>{{ delivery | json }}</span> -->
+      <div class="container my-2">
+        <ngb-progressbar
+          type="secondary"
+          height="2rem"
+          [value]="valueOf(delivery.status)"
+          [striped]="true"
+          [animated]="true"
+          ><i>{{ delivery.status }}</i></ngb-progressbar
+        >
+        <span>Estimated time of arrival: {{ delivery.eta | date }} </span>
+      </div>
+    </div>
+  </section>
+</div>
