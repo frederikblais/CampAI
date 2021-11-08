@@ -1,4 +1,5 @@
 export const environment = {
   adminPassword: '1234',
-  production: true
+  production: false,
+  wsEndpoint:'ws://localhost:8081'
 };
