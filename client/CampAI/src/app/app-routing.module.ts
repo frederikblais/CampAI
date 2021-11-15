@@ -6,13 +6,15 @@ import { DeliveryComponent } from './components/delivery/delivery.component';
 import { AdminGuard } from './guards/admin.guard';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },
+  { path:'login', component: LoginComponent },
   { path:'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path:'chat', component: ChatComponent },
   { path:'delivery', component: DeliveryComponent },
-  { path:'**', component: NotFoundComponent },
+  { path:'**', component: NotFoundComponent }
 ];
 
 @NgModule({

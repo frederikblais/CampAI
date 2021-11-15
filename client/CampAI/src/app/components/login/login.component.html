@@ -1,0 +1,10 @@
+<div class="container mb-3">
+    <br>
+    <h2>Login</h2>
+    <p>Please login to access</p>
+
+    <input [(ngModel)]="username" (keydown.enter)="login()" type="text" class="form-control mb-3" placeholder="Username">
+    <input [(ngModel)]="password" (keydown.enter)="login()" type="password" class="form-control mb-3" placeholder="Password">
+
+    <button (click)="login()" (keydown.enter)="login()" type="button" class="btn btn-primary text-light">Submit</button>
+</div>
