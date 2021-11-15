@@ -1,68 +1,56 @@
+import { authenticate, createUser, deleteUser, readUserById, updateUser, upsertUser } from "../services/user.service";
 import { Context } from "koa";
-import { User } from "../interfaces/iUsers";
-import {
-  authenticate,
-  readUserById,
-  upsertUser,
-} from "../services/user.service";
-import { sendMessage } from "../services/websocket.service";
+import * as jwt from 'jsonwebtoken';
+const Router = require('@koa/router');
 
-const Router = require("@koa/router");
 export const userRouter = new Router({
-  prefix: "/users",
+    prefix: '/users'
 });
 
-// Console format
-const line = "---------------------------------------";
-
-userRouter.get("/", async (ctx) => {
-  ctx.body = await readUserById("36474");
-  ctx.response.status = 200;
-  console.log("response: ", ctx.body);
-  console.log(line);
+userRouter.get('/', async (ctx) => {
+    const userId = ctx.request.query.id
+    ctx.body = await readUserById(userId);
 });
 
-userRouter.post("/", async (ctx) => {
-  const user = await upsertUser(ctx.request.body);
-  ctx.body = {
-    message: "User Created",
-    id: user,
-  };
+userRouter.post('/', async (ctx) => {
+    const userId = await upsertUser(ctx.request.body)
+    ctx.body = {
+        message: 'User created',
+        id: userId
+    };
 });
 
-userRouter.post("/authenticate", async (ctx) => {
-  const user = ctx.request.body;
+userRouter.post('/login', async (ctx) => {
 
-  const isAuthenticated = await authenticate(user.username, user.password);
+    const user = ctx.request.body;
 
-  if (isAuthenticated) {
-    ctx.status = 200;
-  } else {
-    ctx.status = 403;
-  }
+    const isAuthenticated = await authenticate(user.username, user.password);
+
+    const token = jwt.sign({ username: user.username }, process.env.SECRET);
+
+    if(isAuthenticated) {
+        ctx.status = 200
+        ctx.body = { token: 1234 }
+    } else {
+        ctx.status = 403
+    }
+})
+
+userRouter.put('/:id', async (ctx) => {
+    const path = ctx.request.path
+    const pathItems = path.split('/')
+    const userId = pathItems[2]
+    await updateUser(ctx.request.body, userId)
+    ctx.body = {
+        message: 'User updated',
+        id: userId
+    };
 });
 
-userRouter.put("/", (ctx) => {
-  ctx.body = "User UPDATED";
-  console.log("response: ", ctx.response.status);
-  console.log("Updated: ", ctx.request.body);
-  console.log(line);
-});
-
-userRouter.delete("/", (ctx: Context) => {
-  const query = ctx.request.query;
-  ctx.body = "User Deleted";
-  console.log("response: ", ctx.response.status);
-  console.log("Deleted: ", ctx.request.body);
-  console.log(line);
-});
-
-userRouter.post("/message", async (ctx) => {
-  const message = ctx.request.body.message;
-
-  await sendMessage(message);
-
-  ctx.body = {
-    message: "Message sent",
-  };
+userRouter.delete('/:id', async (ctx: Context) => {
+    const path = ctx.request.path
+    const pathItems = path.split('/')
+    const userId = pathItems[2]
+    await deleteUser(userId)
+    ctx.body = `Ok, deleted id#${userId}`;
 });

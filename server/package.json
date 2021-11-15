@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist/*",
-    "gcp-build": "tsc -p .",
-    "start": "npm run clean && tsc && node dist/app.js",
+    "gcp-build": "tsc",
+    "start": "node dist/app.js",
     "start:dev": "tsc && nodemon src/app.ts",
+    "deploy:az": "tsc && az webapp up --sku F1 --name CampAI --location canadacentral --resource-group transactionalWebApp --runtime \"NODE|14-lts\" ",
     "test": ""
   },
   "repository": {
@@ -33,6 +34,7 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "firebase": "^9.2.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-basic-auth": "^4.0.0",
     "koa-bodyparser": "^4.3.0",

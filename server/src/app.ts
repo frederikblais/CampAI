@@ -15,9 +15,10 @@ const app = new Koa();
 const line = '---------------------------------------'
 
 // Koa Auth
-app.use(auth({ name: process.env.USERNAME, pass: process.env.PASS }));
+// Basic Auth => do not use
+// app.use(auth({ name: process.env.USERNAME, pass: process.env.PASS }));
 
-// bodyparser
+// Bodyparser
 app.use(bodyParser())
 
 // Routing
@@ -36,10 +37,10 @@ app.use(async (ctx: Context) => {
     }
 })
 
-// logger
+// Logger
 app.use(logger());
 
-// error handling
+// Error handling
 app.use(async (ctx: Context, next: () => any) => {
     try {
         await next();
@@ -52,6 +53,7 @@ app.use(async (ctx: Context, next: () => any) => {
     }
 })
 
+// Console Output
 const port = process.env.PORT || 8080; 
 app.listen(port, () => {
     console.log(line)

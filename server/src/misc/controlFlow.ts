@@ -26,7 +26,5 @@ export async function getTodos() {
     const endParallel = new Date().getTime();
     const totalParallel = endParallel - startParallel;
     console.log('totalParallel: ', totalParallel);
-	// access individual responses with responses[1]
-    // console.log('Response 1:', response1.body);
     return responses.map(resp => resp.body);
 }
