@@ -6,7 +6,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ChatComponent } from './chat/chat.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminGuard } from './guards/admin.guard';
@@ -15,6 +15,8 @@ import { DeliveryComponent } from './components/delivery/delivery.component';
 import { FormsModule } from '@angular/forms';
 import { WebsocketService } from './services/websocket.service';
 import { LoginComponent } from './components/login/login.component';
+import { LoginGuard } from './guards/login.guard';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { LoginComponent } from './components/login/login.component';
   ],
   providers: [
     AdminGuard,
-    WebsocketService,
+    LoginGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

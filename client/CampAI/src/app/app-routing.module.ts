@@ -7,9 +7,10 @@ import { AdminGuard } from './guards/admin.guard';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/login/login.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
-  { path:'', component: HomeComponent },
+  { path:'', component: HomeComponent, canActivate: [LoginGuard] },
   { path:'login', component: LoginComponent },
   { path:'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path:'chat', component: ChatComponent },
