@@ -38,6 +38,7 @@
     "koa": "^2.13.4",
     "koa-basic-auth": "^4.0.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-cors": "^0.0.16",
     "superagent": "^6.1.0",
     "ws": "^8.2.3"
   }

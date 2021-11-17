@@ -6,10 +6,12 @@ import { healthCheckRouter } from "./routers/healthCheck.router";
 import { userRouter } from "./routers/user.router";
 import { chatRouter } from "./routers/chat.router";
 import { reservationRouter } from "./routers/reservation.router";
+import * as jwt from "jsonwebtoken";
 
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const auth = require('koa-basic-auth')
+const cors = require('koa-cors');
 
 const app = new Koa();
 const line = '---------------------------------------'
@@ -18,12 +20,33 @@ const line = '---------------------------------------'
 // Basic Auth => do not use
 // app.use(auth({ name: process.env.USERNAME, pass: process.env.PASS }));
 
+// cors
+app.use(cors());
+
 // Bodyparser
 app.use(bodyParser())
 
-// Routing
-app.use(healthCheckRouter.routes());
+// Unprotected Routes
 app.use(userRouter.routes());
+
+// Authenticate
+app.use(async (ctx: Context, next) => {
+    if(ctx.headers && ctx.headers['authorization']) {
+        try {
+            await jwt.verify(ctx.headers['authorization'], process.env.SECRET);
+            next();
+        } catch (err) {
+            ctx.status = 401;
+            ctx.body = 'Unauthorized: bad JWT';
+        }
+    } else {
+        ctx.status = 401;
+        ctx.body = 'Unauthorized: missing Header';
+    }
+});
+
+// Protected Routes
+app.use(healthCheckRouter.routes());
 app.use(chatRouter.routes());
 app.use(reservationRouter.routes());
 
@@ -35,7 +58,7 @@ app.use(async (ctx: Context) => {
         console.log('Bad request.')
         console.log(line)
     }
-})
+});
 
 // Logger
 app.use(logger());
@@ -51,7 +74,7 @@ app.use(async (ctx: Context, next: () => any) => {
             message: err.message
         };
     }
-})
+});
 
 // Console Output
 const port = process.env.PORT || 8080; 

@@ -24,13 +24,15 @@ userRouter.post('/login', async (ctx) => {
 
     const user = ctx.request.body;
 
+    console.log('Header Auth: ',ctx.headers.authorization);
+
     const isAuthenticated = await authenticate(user.username, user.password);
 
     const token = jwt.sign({ username: user.username }, process.env.SECRET);
 
     if(isAuthenticated) {
         ctx.status = 200
-        ctx.body = { token: 1234 }
+        ctx.body = { token: token }
     } else {
         ctx.status = 403
     }
