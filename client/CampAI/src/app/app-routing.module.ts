@@ -8,10 +8,12 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginGuard } from './guards/login.guard';
+import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
-  { path:'', component: HomeComponent, canActivate: [LoginGuard] },
   { path:'login', component: LoginComponent },
+  { path:'signup', component: SignupComponent },
+  { path:'', component: HomeComponent, canActivate: [LoginGuard] },
   { path:'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path:'chat', component: ChatComponent },
   { path:'delivery', component: DeliveryComponent },

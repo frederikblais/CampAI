@@ -17,6 +17,7 @@ import { WebsocketService } from './services/websocket.service';
 import { LoginComponent } from './components/login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ChatBoxComponent,
     DeliveryComponent,
     LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

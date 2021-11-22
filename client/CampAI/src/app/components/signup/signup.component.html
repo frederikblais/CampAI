@@ -1,0 +1,84 @@
+<div class="container">
+  <br />
+  <h2>Signup</h2>
+
+  <!-- Username -->
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <label for="validationServerUsername" class="form-label">Username</label>
+      <div class="input-group">
+        <input
+          [(ngModel)]="username"
+          type="text"
+          class="form-control"
+          id="username"
+          aria-describedby="basic-addon1"
+          required
+          placeholder="Username"
+          [ngClass]="{'is-valid': isUsernameValid && submitted, 'is-invalid': !isUsernameValid && submitted}"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Passwords -->
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <label for="validationServerUsername" class="form-label">Password</label>
+      <div class="input-group">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          aria-describedby="basic-addon1"
+          required
+        />
+      </div>
+      <label for="password" class="form-label">Retype password</label>
+      <div class="input-group has-validation">
+        <input
+          type="password2"
+          class="form-control"
+          id="password2"
+          aria-describedby="basic-addon1"
+          required
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- DOB -->
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <label for="dateOfBirth">Date of Birth</label>
+      <input id="dateOfBirth" class="form-control" type="date" />
+    </div>
+  </div>
+
+  <!-- Checkbox -->
+  <div class="input-group mb-3 has-validation">
+    <input
+      class="form-check-input me-2"
+      type="checkbox"
+      value=""
+      id="flexCheckDefault"
+    />
+    <label class="form-check-label" for="flexCheckDefault">
+      I accept the <a>terms and conditions</a>
+    </label>
+  </div>
+
+  <!-- Errors -->
+  <div class="alert alert-danger" *ngIf="errors.length > 0">
+    <ul>
+      <li *ngFor="let error of errors">{{ error }}</li>
+    </ul>
+  </div>
+
+  <!-- Submit -->
+  <div class="col-12">
+    <button (click)="onSubmitClick()" class="btn btn-primary" type="submit">
+      Submit form
+    </button>
+  </div>
+</div>
