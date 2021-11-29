@@ -24,24 +24,29 @@
   <!-- Passwords -->
   <div class="col-md-12">
     <div class="col-md-4">
-      <label for="validationServerUsername" class="form-label">Password</label>
+      <label for="password" class="form-label">Password</label>
       <div class="input-group">
         <input
+          [(ngModel)]="password"
           type="password"
           class="form-control"
           id="password"
           aria-describedby="basic-addon1"
           required
+          placeholder="Password"
+          [ngClass]="{'is-valid': isPasswordValid && submitted, 'is-invalid': !isPasswordValid && submitted}"
         />
       </div>
-      <label for="password" class="form-label">Retype password</label>
+      <label for="re-password" class="form-label">Retype password</label>
       <div class="input-group has-validation">
         <input
-          type="password2"
+          [(ngModel)]="rePassword"
+          type="password"
           class="form-control"
           id="password2"
           aria-describedby="basic-addon1"
           required
+          placeholder="Repeat password"
         />
       </div>
     </div>

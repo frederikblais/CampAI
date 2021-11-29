@@ -9,7 +9,10 @@ export class SignupComponent implements OnInit {
 
   errors: string[] = []
   username: string = ''
+  password: string = ''
+  rePassword: string = ''
   isUsernameValid: boolean = false
+  isPasswordValid: boolean = false
   submitted: boolean = false
 
   constructor() { }
@@ -30,7 +33,36 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  validatePassword() {}
+  validatePassword() {
+    this.isPasswordValid = true
+    const containsLetters = /[a-zA-Z]/g
+    const containsNumbers = /\d/g
+    const containsSymbols = /[|\\/~^:,;?!&%$@*+]/
+
+    if (this.password.length < 6) { // Password must be >= 6 char
+      this.errors.push('Password must be at least 6 characters.')
+      this.isPasswordValid = false
+    }
+
+    if (!containsLetters.test(this.password)) { // Password must contains letters
+      this.errors.push('Password must contain a letter.')
+      this.isPasswordValid = false
+    }
+
+    if (!containsNumbers.test(this.password)) { // Password must contain a number 
+      this.errors.push('Password must contain a number.')
+      this.isPasswordValid = false
+    }
+
+    if (!containsSymbols.test(this.password)) { // Password must contain a symbol 
+      this.errors.push('Password must contain a symbol.')
+      this.isPasswordValid = false
+    }
+    // if(this.password != rePassword) { // Password must match
+    
+    // }
+
+  }
 
   validateDOB() {}
 
