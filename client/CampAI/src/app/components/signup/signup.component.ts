@@ -11,9 +11,18 @@ export class SignupComponent implements OnInit {
   username: string = ''
   password: string = ''
   rePassword: string = ''
+
   isUsernameValid: boolean = false
   isPasswordValid: boolean = false
+  isRePasswordValid: boolean = false
+  isDOBValid: boolean = false
+  isTOSValid: boolean = false
+
+  DOB: Date = new Date
+  TOS: boolean = false
   submitted: boolean = false
+
+  onSubmitUrl:string = '/';
 
   constructor() { }
 
@@ -35,6 +44,7 @@ export class SignupComponent implements OnInit {
 
   validatePassword() {
     this.isPasswordValid = true
+    this.isRePasswordValid = true
     const containsLetters = /[a-zA-Z]/g
     const containsNumbers = /\d/g
     const containsSymbols = /[|\\/~^:,;?!&%$@*+]/
@@ -58,23 +68,59 @@ export class SignupComponent implements OnInit {
       this.errors.push('Password must contain a symbol.')
       this.isPasswordValid = false
     }
-    // if(this.password != rePassword) { // Password must match
-    
-    // }
+
+    if(this.password != this.rePassword || this.rePassword === '') { // Password must match
+      this.errors.push('Password must match')
+      this.isRePasswordValid = false
+    }
 
   }
 
-  validateDOB() {}
+  validateDOB() { // DOB must be > 18 y/o
+    this.isDOBValid = true
+    var today: Date = new Date()
+    var bd: Date = new Date(this.DOB.toString())
+    var age: number = today.getFullYear() - bd.getFullYear()
+    var month: number = today.getMonth() - bd.getMonth()
 
-  validateTOS() {}
+    if(!Date.parse(this.DOB.toString())){
+      this.errors.push('You must enter a valide date.')
+      this.isDOBValid = false
+    }
+
+    if (month < 0 || (month === 0 && today.getDate() < bd.getDate())) {
+      age--;
+    }
+
+    if(age < 18 ) {
+      this.errors.push('You must be 18 years old to access this site.')
+      this.isDOBValid = false
+    }
+  }
+
+  validateTOS() { // Validate term of services
+    this.isTOSValid = true
+    var element: HTMLInputElement = <HTMLInputElement> document.getElementById("TOS");
+    if (!element.checked) {
+      this.errors.push("You must accept the Terms and Conditions")
+      this.isTOSValid = false
+    }
+  }
 
   onSubmitClick() {
+    // Reset
     this.submitted = true
-    this.errors = [] // Reset
+    this.errors = []
+
+    // Validate fields
     this.validateUsername()
     this.validatePassword()
     this.validateDOB()
     this.validateTOS()
-  }
 
+    // If all fields === valid => user to /
+    if (this.isUsernameValid && this.isPasswordValid && this.isDOBValid && this.isTOSValid) {
+      window.location.href=this.onSubmitUrl
+    }
+  }
 }

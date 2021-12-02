@@ -15,7 +15,11 @@
           aria-describedby="basic-addon1"
           required
           placeholder="Username"
-          [ngClass]="{'is-valid': isUsernameValid && submitted, 'is-invalid': !isUsernameValid && submitted}"
+          (keydown.enter)="onSubmitClick()"
+          [ngClass]="{
+            'is-valid': isUsernameValid && submitted,
+            'is-invalid': !isUsernameValid && submitted
+          }"
         />
       </div>
     </div>
@@ -34,19 +38,28 @@
           aria-describedby="basic-addon1"
           required
           placeholder="Password"
-          [ngClass]="{'is-valid': isPasswordValid && submitted, 'is-invalid': !isPasswordValid && submitted}"
+          (keydown.enter)="onSubmitClick()"
+          [ngClass]="{
+            'is-valid': isPasswordValid && submitted,
+            'is-invalid': !isPasswordValid && submitted
+          }"
         />
       </div>
-      <label for="re-password" class="form-label">Retype password</label>
+      <label for="re-password" class="form-label">Repeat password</label>
       <div class="input-group has-validation">
         <input
           [(ngModel)]="rePassword"
           type="password"
           class="form-control"
-          id="password2"
+          id="re-password"
           aria-describedby="basic-addon1"
           required
           placeholder="Repeat password"
+          (keydown.enter)="onSubmitClick()"
+          [ngClass]="{
+            'is-valid': isRePasswordValid && submitted,
+            'is-invalid': !isRePasswordValid && submitted
+          }"
         />
       </div>
     </div>
@@ -56,17 +69,33 @@
   <div class="col-md-12">
     <div class="col-md-4">
       <label for="dateOfBirth">Date of Birth</label>
-      <input id="dateOfBirth" class="form-control" type="date" />
+      <input
+        [(ngModel)]="DOB"
+        id="dateOfBirth"
+        class="form-control"
+        type="date"
+        (keydown.enter)="onSubmitClick()"
+        [ngClass]="{
+          'is-valid': isDOBValid && submitted,
+          'is-invalid': !isDOBValid && submitted
+        }"
+      />
     </div>
   </div>
 
   <!-- Checkbox -->
   <div class="input-group mb-3 has-validation">
     <input
+      [(ngModel)]="TOS"
       class="form-check-input me-2"
       type="checkbox"
       value=""
-      id="flexCheckDefault"
+      id="TOS"
+      (keydown.enter)="onSubmitClick()"
+      [ngClass]="{
+        'is-valid': isTOSValid && submitted,
+        'is-invalid': !isTOSValid && submitted
+      }"
     />
     <label class="form-check-label" for="flexCheckDefault">
       I accept the <a>terms and conditions</a>
@@ -82,7 +111,12 @@
 
   <!-- Submit -->
   <div class="col-12">
-    <button (click)="onSubmitClick()" class="btn btn-primary" type="submit">
+    <button
+      (click)="onSubmitClick()"
+      (keydown.enter)="onSubmitClick()"
+      class="btn btn-primary"
+      type="submit"
+    >
       Submit form
     </button>
   </div>
