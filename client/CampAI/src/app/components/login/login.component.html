@@ -4,8 +4,47 @@
     <p>Please login to access</p>
 
     <span class="text-danger">{{errorMessage}}</span>
-    <input [(ngModel)]="username" (keydown.enter)="login()" type="text" class="form-control mb-3" placeholder="Username">
-    <input [(ngModel)]="password" (keydown.enter)="login()" type="password" class="form-control mb-3" placeholder="Password">
+
+    <!-- Username -->
+    <div class="col-md-12">
+        <div class="col-md-4">
+        <label for="validationServerUsername" class="form-label">Username</label>
+        <div class="input-group">
+            <input
+            [(ngModel)]="username"
+            type="text"
+            class="form-control"
+            id="username"
+            aria-describedby="basic-addon1"
+            required
+            placeholder="Username"
+            (keydown.enter)="login()"
+            />
+        </div>
+        </div>
+    </div>
+
+    <!-- Passwords -->
+    <div class="col-md-12">
+        <div class="col-md-4">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+            <input
+            [(ngModel)]="password"
+            type="password"
+            class="form-control"
+            id="password"
+            aria-describedby="basic-addon1"
+            required
+            placeholder="Password"
+            (keydown.enter)="login()"
+            />
+        </div>
+        </div>
+    </div>
+
+    <br>
+    <p>Don't have an account? <a href="/signup"> Sign up</a></p>
 
     <button (click)="login()" (keydown.enter)="login()" type="button" class="btn btn-primary text-light">Submit</button>
 </div>
