@@ -13,7 +13,6 @@ import { AdminGuard } from './guards/admin.guard';
 import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 import { DeliveryComponent } from './components/delivery/delivery.component';
 import { FormsModule } from '@angular/forms';
-import { WebsocketService } from './services/websocket.service';
 import { LoginComponent } from './components/login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';

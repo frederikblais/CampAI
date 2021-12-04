@@ -17,8 +17,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // On Submit Click
   login(): void {

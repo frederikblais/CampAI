@@ -15,8 +15,8 @@ const routes: Routes = [
   { path:'signup', component: SignupComponent },
   { path:'', component: HomeComponent, canActivate: [LoginGuard] },
   { path:'admin', component: AdminComponent, canActivate: [AdminGuard] },
-  { path:'chat', component: ChatComponent },
-  { path:'delivery', component: DeliveryComponent },
+  { path:'chat', component: ChatComponent, canActivate: [LoginGuard] },
+  { path:'delivery', component: DeliveryComponent, canActivate: [LoginGuard] },
   { path:'**', component: NotFoundComponent }
 ];
 

@@ -107,6 +107,10 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  signInUser() {  // After register, login user
+
+  }
+
   onSubmitClick() {
     // Reset
     this.submitted = true
@@ -121,6 +125,7 @@ export class SignupComponent implements OnInit {
     // If all fields === valid => user to /
     if (this.isUsernameValid && this.isPasswordValid && this.isDOBValid && this.isTOSValid) {
       window.location.href=this.onSubmitUrl
+      this.signInUser()
     }
   }
 }
