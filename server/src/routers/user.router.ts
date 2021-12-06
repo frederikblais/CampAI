@@ -12,14 +12,15 @@ userRouter.get('/', async (ctx) => {
     ctx.body = await readUserById(userId);
 });
 
+// Signup user
 userRouter.post('/', async (ctx) => {
     const userId = await upsertUser(ctx.request.body)
     ctx.body = {
-        message: 'User created',
-        id: userId
+        message: `Successfuly created user#${userId}`,
     };
 });
 
+// Login user
 userRouter.post('/login', async (ctx) => {
 
     const user = ctx.request.body;
@@ -30,8 +31,14 @@ userRouter.post('/login', async (ctx) => {
 
     if(isAuthenticated) {
         ctx.status = 200
-        ctx.body = { token: token }
+        ctx.body = { 
+            User_Exists: isAuthenticated,
+            JWT_IMPORTANT: token
+        }
     } else {
+        ctx.body = { 
+            User_Exists: isAuthenticated
+        }
         ctx.status = 403
     }
 })
