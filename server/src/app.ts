@@ -23,6 +23,12 @@ const line = '---------------------------------------'
 // cors
 app.use(cors());
 
+app.use(async (ctx, next) => {
+    ctx.set('Access-Control-Allow-Origin', '*');
+    ctx.set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+    await next();
+});
+
 // Bodyparser
 app.use(bodyParser())
 
@@ -34,7 +40,7 @@ app.use(async (ctx: Context, next) => {
     if(ctx.headers && ctx.headers['authorization']) {
         try {
             await jwt.verify(ctx.headers['authorization'], process.env.SECRET);
-            next();
+            return next();
         } catch (err) {
             ctx.status = 401;
             ctx.body = 'Unauthorized: bad JWT';

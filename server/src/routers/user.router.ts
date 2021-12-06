@@ -24,8 +24,6 @@ userRouter.post('/login', async (ctx) => {
 
     const user = ctx.request.body;
 
-    console.log('Header Auth: ',ctx.headers.authorization);
-
     const isAuthenticated = await authenticate(user.username, user.password);
 
     const token = jwt.sign({ username: user.username }, process.env.SECRET);
@@ -37,17 +35,6 @@ userRouter.post('/login', async (ctx) => {
         ctx.status = 403
     }
 })
-
-userRouter.put('/:id', async (ctx) => {
-    const path = ctx.request.path
-    const pathItems = path.split('/')
-    const userId = pathItems[2]
-    await updateUser(ctx.request.body, userId)
-    ctx.body = {
-        message: 'User updated',
-        id: userId
-    };
-});
 
 userRouter.delete('/:id', async (ctx: Context) => {
     const path = ctx.request.path

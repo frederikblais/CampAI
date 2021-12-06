@@ -9,6 +9,6 @@ export class User implements iUsers {
 
     constructor(args) {
         this.name = args.name;
-        this.password = args.paaword;
+        this.password = args.password;
     }
 }
