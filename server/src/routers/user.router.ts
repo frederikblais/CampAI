@@ -32,14 +32,14 @@ userRouter.post('/login', async (ctx) => {
     if(isAuthenticated) {
         ctx.status = 200
         ctx.body = { 
-            User_Exists: isAuthenticated,
-            JWT_IMPORTANT: token
+            UserExists: isAuthenticated,
+            JWT: token
         }
     } else {
         ctx.body = { 
-            User_Exists: isAuthenticated
+            UserExists: isAuthenticated
         }
-        ctx.status = 403
+        ctx.status = 403    // Forbiden
     }
 })
 
