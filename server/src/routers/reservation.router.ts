@@ -2,7 +2,7 @@ import { executeQuery } from "../services/chat.service";
 import { authenticate } from "../services/user.service";
 import { Context } from "koa";
 import * as jwt from 'jsonwebtoken';
-import { createReservation, deleteReservation, getReservation } from "../services/reservation.service";
+import { createReservation, deleteReservation, getReservation, getReservationID, putReservation } from "../services/reservation.service";
 
 const Router = require("@koa/router");
 
@@ -14,7 +14,18 @@ export const reservationRouter = new Router({
 reservationRouter.get("/", async (ctx) => {
   var reservations = await getReservation()
   ctx.body = {
-    message: reservations,
+    Reservations: reservations,
+  };
+});
+
+// Get reservation by ID
+reservationRouter.get("/:id", async (ctx) => {
+  const path = ctx.request.path
+  const pathItems = path.split('/')
+  const reservationID = pathItems[2]
+  const reservation = await getReservationID(reservationID)
+  ctx.body = {
+    Reservations: reservation,
   };
 });
 
@@ -37,3 +48,13 @@ reservationRouter.delete('/:id', async (ctx: Context) => {
   ctx.body = `Ok, deleted id: ${reservationID}`
 });
 
+// Put reservation
+reservationRouter.put('/:id', async (ctx: Context) => {
+  const path = ctx.request.path
+  const reservationInfos = ctx.request.body;
+  const pathItems = path.split('/')
+  const reservationID = pathItems[2]
+  await putReservation(reservationID, reservationInfos)
+  console.log('put: ',reservationID)
+  ctx.body = `Ok, modified id: ${reservationID}`
+});
