@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +13,7 @@ export class SignupComponent implements OnInit {
   username: string = ''
   password: string = ''
   rePassword: string = ''
+  errorMessage: string = ''
 
   isUsernameValid: boolean = false
   isPasswordValid: boolean = false
@@ -24,7 +27,11 @@ export class SignupComponent implements OnInit {
 
   onSubmitUrl:string = '/';
 
-  constructor() { }
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {}
 
@@ -108,7 +115,17 @@ export class SignupComponent implements OnInit {
   }
 
   signInUser() {  // After register, login user
-
+    if (this.isUsernameValid && this.isPasswordValid && this.isDOBValid && this.isTOSValid) {
+      this.authService.signup(this.username, this.password).subscribe(
+        (response: any) => {
+          this.router.navigate(['/'])
+        },
+        (error: any) => {
+          console.log(error);
+          this.errorMessage = error.statusText
+        }
+      );
+    }
   }
 
   onSubmitClick() {
@@ -121,11 +138,6 @@ export class SignupComponent implements OnInit {
     this.validatePassword()
     this.validateDOB()
     this.validateTOS()
-
-    // If all fields === valid => user to /
-    if (this.isUsernameValid && this.isPasswordValid && this.isDOBValid && this.isTOSValid) {
-      window.location.href=this.onSubmitUrl
-      this.signInUser()
-    }
+    this.signInUser()
   }
 }

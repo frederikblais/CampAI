@@ -29,10 +29,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/'])
       },
       (error: any) => {
+        console.log('client-side token: ', error.token)
+        console.log('login failed, code: ')
         console.log(error);
         this.errorMessage = error.statusText
       }
     );
-
   }
 }
