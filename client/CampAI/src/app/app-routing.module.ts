@@ -9,6 +9,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { SignupComponent } from './components/signup/signup.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path:'', component: HomeComponent, canActivate: [LoginGuard] },
   { path:'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path:'chat', component: ChatComponent, canActivate: [LoginGuard] },
+  { path:'reservation', component: ReservationComponent, canActivate: [LoginGuard] },
   { path:'delivery', component: DeliveryComponent, canActivate: [LoginGuard] },
   { path:'**', component: NotFoundComponent }
 ];
