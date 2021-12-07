@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { SignupComponent } from './components/signup/signup.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path:'chat', component: ChatComponent, canActivate: [LoginGuard] },
   { path:'reservation', component: ReservationComponent, canActivate: [LoginGuard] },
   { path:'delivery', component: DeliveryComponent, canActivate: [LoginGuard] },
+  { path:'confirmation', component: ConfirmationComponent, canActivate: [LoginGuard] },
   { path:'**', component: NotFoundComponent }
 ];
 

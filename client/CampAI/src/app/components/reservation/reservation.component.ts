@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class ReservationComponent implements OnInit {
   isCancelValid:boolean = false
 
   constructor(
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {}
@@ -119,7 +121,7 @@ export class ReservationComponent implements OnInit {
       this.reservationService.reserve(this.reservationName, this.peopleCount, this.lot, this.arrival, this.departure)
         .subscribe(
         (response: any) => {
-          console.log('success')
+          this.router.navigate(['/confirmation'])
         },
         (error: any) => {
           console.log(error);

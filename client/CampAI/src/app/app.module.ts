@@ -18,6 +18,7 @@ import { LoginGuard } from './guards/login.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SignupComponent } from './components/signup/signup.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     LoginComponent,
     SignupComponent,
     ReservationComponent,
+    ConfirmationComponent,
   ],
   imports: [
     BrowserModule,
