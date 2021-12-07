@@ -5,7 +5,7 @@
     <h3>Reserve your trip! (UNDER CONSTRUCTION)</h3>
     <hr />
     <p>You can reserve with our <a href="/chat">AI powered assistant</a></p>
-    <p>Feel free to use this page if you are old fassioned</p>
+    <p>Feel free to use this page if you are old fashioned</p>
     <br />
   </div>
 
@@ -23,6 +23,12 @@
             aria-describedby="basic-addon1"
             required
             placeholder="Name"
+            [(ngModel)]="reservationName"
+            [ngClass]="{
+              'is-valid': isReservationNameValid && submitted,
+              'is-invalid': !isReservationNameValid && submitted
+            }"
+            (keydown.enter)="onSubmitClick()"
           />
         </div>
       </div>
@@ -44,6 +50,12 @@
             aria-describedby="basic-addon1"
             required
             placeholder="Amount"
+            [(ngModel)]="peopleCount"
+            [ngClass]="{
+              'is-valid': isPeopleCountValid && submitted,
+              'is-invalid': !isPeopleCountValid && submitted
+            }"
+            (keydown.enter)="onSubmitClick()"
           />
         </div>
       </div>
@@ -59,12 +71,18 @@
         >
         <div class="input-group">
           <input
-            type="text"
+            type="number"
             class="form-control"
             id="people"
             aria-describedby="basic-addon1"
             required
             placeholder="Lot #"
+            [(ngModel)]="lot"
+            [ngClass]="{
+              'is-valid': isLotValid && submitted,
+              'is-invalid': !isLotValid && submitted
+            }"
+            (keydown.enter)="onSubmitClick()"
           />
         </div>
       </div>
@@ -76,7 +94,17 @@
     <div class="col-md-12">
       <div class="col-md-4">
         <label for="dateIn">Date of arrival</label>
-        <input id="dateIn" class="form-control" type="date" />
+        <input
+          id="dateIn"
+          class="form-control"
+          type="date"
+          [(ngModel)]="arrival"
+          [ngClass]="{
+            'is-valid': isArrivalValid && submitted,
+            'is-invalid': !isArrivalValid && submitted
+          }"
+          (keydown.enter)="onSubmitClick()"
+        />
       </div>
     </div>
 
@@ -86,7 +114,17 @@
     <div class="col-md-12">
       <div class="col-md-4">
         <label for="dateOut">Date of departure</label>
-        <input id="dateOut" class="form-control" type="date" />
+        <input
+          id="dateOut"
+          class="form-control"
+          type="date"
+          [(ngModel)]="departure"
+          [ngClass]="{
+            'is-valid': isDepartureValid && submitted,
+            'is-invalid': !isDepartureValid && submitted
+          }"
+          (keydown.enter)="onSubmitClick()"
+        />
       </div>
     </div>
 
@@ -94,15 +132,56 @@
 
     <!-- Checkbox -->
     <div class="input-group mb-3 has-validation">
-      <input class="form-check-input me-2" type="checkbox" value="" id="TOS" />
+      <input
+        class="form-check-input me-2"
+        type="checkbox"
+        value=""
+        id="TOS"
+        (keydown.enter)="onSubmitClick()"
+        [ngClass]="{
+          'is-valid': isTOSValid && submitted,
+          'is-invalid': !isTOSValid && submitted
+        }"
+      />
       <label class="form-check-label" for="flexCheckDefault">
-        I accept the <a>terms and conditions</a>
+        I accept the <a href="/">terms and conditions</a>
       </label>
+    </div>
+    <div class="input-group mb-3 has-validation">
+      <input
+        class="form-check-input me-2"
+        type="checkbox"
+        value=""
+        id="CS"
+        (keydown.enter)="onSubmitClick()"
+        [ngClass]="{
+          'is-valid': isCancelValid && submitted,
+          'is-invalid': !isCancelValid && submitted
+        }"
+      />
+      <label class="form-check-label" for="flexCheckDefault">
+        I understand that I need to <a href="/">contact support</a> if I need to
+        cancel a reservation
+      </label>
+    </div>
+
+    <!-- Errors -->
+    <div class="alert alert-danger" *ngIf="errors.length > 0">
+      <ul>
+        <li *ngFor="let error of errors">{{ error }}</li>
+      </ul>
     </div>
 
     <!-- Submit -->
     <div class="col-12">
-      <button class="btn btn-primary" type="submit">Submit form</button>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="onSubmitClick()"
+        (keydown.enter)="onSubmitClick()"
+      >
+        Submit form
+      </button>
     </div>
   </div>
 </div>
