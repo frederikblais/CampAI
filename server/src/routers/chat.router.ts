@@ -6,58 +6,56 @@ export const chatRouter = new Router({
   prefix: "/chat",
 });
 
-chatRouter.post("/message", async (ctx) => {
+chatRouter.post("/ai", async (ctx) => {
   const query = ctx.request.body.query;
 
   const response = await executeQuery(query);
 
   ctx.body = {
-    botMessage: response,
+    BotResponse: response,
   };
 });
 
-chatRouter.post("/webhook", async (ctx) => {
-  
-  console.log('ctx.request.body: ',ctx.request.body)
+// chatRouter.post("/webhook", async (ctx) => {
 
-  const intentName = ctx.request.body.queryResult.intent.displayName
+//   const intentName = ctx.request.body.queryResult.intent.displayName
 
-  const color = ctx.request.body.queryResult.parameters.color
+//   const color = ctx.request.body.queryResult.parameters.color
 
-  console.log('intent:', intentName)
+//   console.log('intentName:', intentName)
 
-  if (intentName === 'MyWebhook') {
-    ctx.body = {
-      "fulfillmentMessages": [
-        {
-          "text": {
-            "text": [
-              "Text response from webhook"
-            ]
-          }
-        }
-      ]
-    }
-  } else if (intentName === 'carAvailable') {
-    // get cars
-    let numberOfCarsAvailable = 0;
+//   if (intentName === 'MyWebhook') {
+//     ctx.body = {
+//       "fulfillmentMessages": [
+//         {
+//           "text": {
+//             "text": [
+//               "Text response from webhook"
+//             ]
+//           }
+//         }
+//       ]
+//     }
+//   } else if (intentName === 'carAvailable') {
+//     // get cars
+//     let numberOfCarsAvailable = 0;
 
-    const cars = 8;
+//     const cars = 8;
 
-    numberOfCarsAvailable = cars
+//     numberOfCarsAvailable = cars
 
-    ctx.body = {
-      "fulfillmentMessages": [
-        {
-          "text": {
-            "text": [
-              `There are ${numberOfCarsAvailable} ${ color ? color + ' ' : '' } cars available`
-            ]
-          }
-        }
-      ]
-    }
+//     ctx.body = {
+//       "fulfillmentMessages": [
+//         {
+//           "text": {
+//             "text": [
+//               `There are ${numberOfCarsAvailable} ${ color ? color + ' ' : '' } cars available`
+//             ]
+//           }
+//         }
+//       ]
+//     }
 
-  }
+//   }
 
-});
+// });

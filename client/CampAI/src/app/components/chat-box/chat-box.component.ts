@@ -10,7 +10,9 @@ export class ChatBoxComponent implements OnInit {
   chatsArray: any[] = [];
   userTextInput: string = '';
 
-  constructor(private chatService: ChatService) {}
+  constructor(
+    private chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
     this.chatService.chats.subscribe((chats) => {
@@ -22,8 +24,13 @@ export class ChatBoxComponent implements OnInit {
     if (this.userTextInput == '') {
       return;
     } else {
-      this.chatService.addNewChat(this.userTextInput);
-      this.chatService.addNewResponse();
+
+      this.chatService.addNewChat(this.userTextInput);  // Add user input in bubble
+
+      const response = this.chatService.generateAIResponse(this.userTextInput);
+
+      console.log(response);
+
       this.userTextInput = '';
     }
   }

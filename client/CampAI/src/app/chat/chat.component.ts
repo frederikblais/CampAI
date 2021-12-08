@@ -8,15 +8,7 @@ import { JsonapiService } from '../services/jsonapi.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(
-    private jsonAPIService: JsonapiService
-  ) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.jsonAPIService.getTodo().subscribe(
-      (data) => {
-        console.log(data)
-      }
-    )
-  }
+  ngOnInit(): void {}
 }

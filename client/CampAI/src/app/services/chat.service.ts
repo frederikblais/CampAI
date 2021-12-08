@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 export interface iChat {
   sender: string;
@@ -14,7 +16,9 @@ export interface iChat {
 export class ChatService {
   chats: BehaviorSubject<iChat[]> = new BehaviorSubject([] as iChat[]);
 
-  constructor() {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   addNewChat(input: string) {
     const newChat = this.generateNewChat(input);
@@ -25,12 +29,10 @@ export class ChatService {
     });
   }
 
-  addNewResponse() {
-    const newResponse = this.generateBotResponse();
-
+  addNewResponse(bot:iChat) {
     this.chats.pipe(take(1)).subscribe((allChats) => {
       setTimeout(() => {
-        allChats.push(newResponse);
+        allChats.push(bot);
       }, 1200);
       this.chats.next(allChats);
     });
@@ -46,32 +48,24 @@ export class ChatService {
     return chat;
   }
 
-  generateBotResponse() {
-    const currentTime = new Date().getTime();
+  // Dialogflow ----------------------------------------------------------------
+  generateAIResponse(query: string) {
+    const botResponse:any =  this.http.post(`${environment.serverUrl}/chat/ai`, {
+      query
+    }).subscribe(res =>
+      this.pushAIResponse(res)
+    );
+  }
 
-    var responses = [
-      'I see.',
-      'How are you doing?',
-      'Thats nice!',
-      '🥺👉👈',
-      '🍆',
-      'Wyd tonight?',
-      'You are so cool, no way!',
-      'Im sure you gonna have a good grade!',
-      'Ok.',
-      'Whats your snap? 👻',
-      'Mind if I come over?',
-      'Whats 9+10?',
-      'Why did the chicken crossed the road?',
-      'So is Fred getting a good grade? 😉'
-    ];
-    let response = responses[Math.floor(Math.random() * responses.length)];
+  pushAIResponse(response: any) {
+    const currentTime = new Date().getTime();
+    let res: string = response.BotResponse;
 
     const botChat: iChat = {
       sender: 'Bot',
-      text: response,
+      text: res,
       sentOn: new Date(currentTime),
     };
-    return botChat;
+    return this.addNewResponse(botChat);
   }
 }

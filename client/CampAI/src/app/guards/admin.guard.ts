@@ -10,7 +10,7 @@ export class AdminGuard implements CanActivate {
     ) {}
 
     canActivate() {
-      const password = prompt('Password pwease 🥺👉👈');
+      const password = prompt('You must be administrator to access this route. Enter your password:');
       return this.adminService.isUserAdministrator(password);
     }
 }
