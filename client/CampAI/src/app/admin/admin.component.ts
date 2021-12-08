@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../services/admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  reservationArray: any[] = [];
+
+  constructor(
+    private adminService: AdminService
+  ) { }
 
   ngOnInit(): void {
+    console.log(this.adminService.getAllReservations())
   }
-
 }

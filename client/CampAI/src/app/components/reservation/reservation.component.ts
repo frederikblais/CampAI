@@ -34,7 +34,7 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  validateReservationName() {
+  validateReservationName() { // Validate Name of reservation
     this.isReservationNameValid = true;
 
     if (this.reservationName.length < 3) { // Reservation must be >= 3 char
@@ -49,7 +49,7 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  validatePeopleCount() {
+  validatePeopleCount() { // Validate # of people on the reservation
     this.isPeopleCountValid = true;
 
     if (this.peopleCount < 1) { // People count must be more than 0
@@ -72,7 +72,7 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  validateDOA() {
+  validateDOA() { // Validate Date of arrival
     this.isArrivalValid = true;
 
     const today = new Date();
@@ -83,7 +83,7 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  validateDOD() {
+  validateDOD() { // Validate Date of departure
     this.isDepartureValid = true;
 
     var end: Date = new Date(this.departure.toString())
