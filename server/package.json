@@ -6,10 +6,8 @@
   "scripts": {
     "clean": "rm -rf dist/*",
     "gcp-build": "tsc",
-    "start": "node dist/app.js",
-    "start:dev": "tsc && nodemon src/app.ts",
-    "deploy:az": "tsc && az webapp up --sku F1 --name CampAI --location canadacentral --resource-group transactionalWebApp --runtime \"NODE|14-lts\" ",
-    "test": ""
+    "start": "tsc && node dist/app.js",
+    "start:dev": "tsc && nodemon src/app.ts"
   },
   "repository": {
     "type": "git",
