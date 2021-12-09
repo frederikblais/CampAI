@@ -54,6 +54,16 @@ export async function updateUser(userInfo, userId: string): Promise<string> {
     return userId;
 }
 
+export async function getAllUsers() {
+    var data: any [] = []
+    const querySnapshot = await getDocs(collection(db, 'users'));
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        data.push(doc.id, doc.data());
+    });
+    return data;
+}
+
 export async function readUserById(userId: string) {
     console.log('Reading user')
     const userRef = await doc(db, 'users', userId);
