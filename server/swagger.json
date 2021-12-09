@@ -122,6 +122,17 @@
                     }
                 }
             },
+            "get":{
+                "description": "Get all users",
+                "responses": {
+                    "200":{
+                        "description": "Responds with a list of all users"
+                    },
+                    "500":{
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
             "delete":{
                 "description": "Delete a single dog",
                 "responses": {
@@ -141,6 +152,50 @@
                         "$ref": "#/components/schemas/User"
                     }
                 }]
+            }
+        },
+        "/users/login":{
+            "post":{
+                "description": "Login a user",
+                "parameters": [{
+                    "in": "path",
+                    "name":"body",
+                    "description": "User object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }],
+                "responses": {
+                    "200":{
+                        "description": "User exists [true || false] & JWT#"
+                    },
+                    "500":{
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/chat/ai":{
+            "post":{
+                "description": "Post a chat to be interpraeted by DialogFlow",
+                "parameters": [{
+                    "in": "path",
+                    "name":"body",
+                    "description": "Chat object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/Chat"
+                    }
+                }],
+                "responses": {
+                    "200":{
+                        "description": "BotResponse: message"
+                    },
+                    "500":{
+                        "description": "Internal Server Error"
+                    }
+                }
             }
         }
     },
@@ -174,6 +229,14 @@
                     },
                     "lot": {
                         "type": "integer"
+                    }
+                }
+            },
+            "Chat": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string"
                     }
                 }
             }
