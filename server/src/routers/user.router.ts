@@ -1,4 +1,4 @@
-import { authenticate, createUser, deleteUser, readUserById, updateUser, upsertUser } from "../services/user.service";
+import { authenticate, createUser, deleteUser, getAllUsers, readUserById, updateUser, upsertUser } from "../services/user.service";
 import { Context } from "koa";
 import * as jwt from 'jsonwebtoken';
 const Router = require('@koa/router');
@@ -7,10 +7,18 @@ export const userRouter = new Router({
     prefix: '/users'
 });
 
-userRouter.get('/', async (ctx) => {
+userRouter.get('/:id', async (ctx) => {
     const userId = ctx.request.query.id
     ctx.body = await readUserById(userId);
 });
+
+// Get all users
+userRouter.get("/", async (ctx) => {
+    var users = await getAllUsers()
+    ctx.body = {
+      User: users,
+    };
+  });
 
 // Signup user
 userRouter.post('/', async (ctx) => {

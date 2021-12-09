@@ -1,0 +1,182 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CampAI",
+        "version": "1.0.0"
+    },
+    "paths":{
+        "/":{
+            "get":{
+                "description": "Get a health check status on the API",
+                "responses": {
+                    "200":{
+                        "description": "API Status: Online"
+                    },
+                    "500":{
+                        "description": "Error: connect ECONNREFUSED 127.0.0.1:8080"
+                    }
+                }
+            }
+        },
+        "/reservation":{
+            "post":{
+                "description": "Create a reservation.",
+                "parameters": [{
+                    "in": "path",
+                    "name":"body",
+                    "description": "Reservation object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/Reservations"
+                    }
+                }],
+                "responses": {
+                    "200":{
+                        "description": "Reservation created"
+                    },
+                    "400":{
+                        "description": "Error: connect ECONNREFUSED"
+                    },
+                    "401":{
+                        "description": "Unauthorized: missing Header"
+                    }
+                }
+            },
+            "get":{
+                "description": "Get a list of all reservations.",
+                "responses": {
+                    "200":{
+                        "description": "Respond with a list of reservations"
+                    },
+                    "400":{
+                        "description": "Error: connect ECONNREFUSED"
+                    },
+                    "401":{
+                        "description": "Unauthorized: missing Header"
+                    }
+                }
+            }
+        },
+        "/reservation/:id":{
+            "get":{
+                "description": "Gets a specific reservation by ID",
+                "responses": {
+                    "200":{
+                        "description": "Respond with reservation"
+                    },
+                    "400":{
+                        "description": "Error: connect ECONNREFUSED"
+                    },
+                    "401":{
+                        "description": "Unauthorized: missing Header"
+                    }
+                }
+            },
+            "put":{
+                "description": "Modify a specific reservation by ID",
+                "responses": {
+                    "200":{
+                        "description": "Ok, modified id: ID"
+                    },
+                    "400":{
+                        "description": "Error: connect ECONNREFUSED"
+                    },
+                    "401":{
+                        "description": "Unauthorized: missing Header"
+                    }
+                }
+            },
+            "delete":{
+                "description": "Deletes a specific reservation by ID",
+                "responses": {
+                    "200":{
+                        "description": "Ok, deleted id:ID"
+                    },
+                    "400":{
+                        "description": "Error: connect ECONNREFUSED"
+                    },
+                    "401":{
+                        "description": "Unauthorized: missing Header"
+                    }
+                }
+            }
+        },
+        "/users":{
+            "post":{
+                "description": "Creates a user",
+                "parameters": [{
+                    "in": "path",
+                    "name":"body",
+                    "description": "User object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }],
+                "responses": {
+                    "200":{
+                        "description": "Successfuly created user#ID"
+                    },
+                    "500":{
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "delete":{
+                "description": "Delete a single dog",
+                "responses": {
+                    "200":{
+                        "description": "Dog successfully deleted"
+                    },
+                    "400":{
+                        "description": "The API received a bad parameter."
+                    }
+                },
+                "parameters": [{
+                    "in": "path",
+                    "name":"body",
+                    "description": "Dog object",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Reservations": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "dateIn": {
+                        "type": "string"
+                    },
+                    "dateOut": {
+                        "type": "string"
+                    },
+                    "peopleCount": {
+                        "type": "integer"
+                    },
+                    "lot": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}
